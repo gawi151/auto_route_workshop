@@ -1,0 +1,51 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Flutter: Get dependencies",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["pub", "get"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Generate routes (build_runner)",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["pub", "run", "build_runner", "build", "--delete-conflicting-outputs"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Watch mode (auto-generate on changes)",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["pub", "run", "build_runner", "watch", "--delete-conflicting-outputs"],
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^(.*)$",
+          "file": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^\\[INFO\\] Building new asset graph",
+          "endsPattern": "^Built with build_runner"
+        }
+      }
+    },
+    {
+      "label": "Flutter: Format code",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["format", "."],
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Analyze code",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["analyze"],
+      "problemMatcher": []
+    }
+  ]
+}
