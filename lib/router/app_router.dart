@@ -14,6 +14,8 @@ part 'app_router.gr.dart';
 /// - Route organization
 @AutoRouterConfig(replaceInRouteName: 'Page|Screen,Route')
 class AppRouter extends RootStackRouter {
+  // Here you can set default transitions when navigating.
+  // This is a good place for platform fidelity.
   @override
   RouteType get defaultRouteType => RouteType.material();
 

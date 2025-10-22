@@ -127,17 +127,9 @@ class Lesson4SettingsScreen extends StatelessWidget {
                     'Customize page transitions with fade, scale, or custom animations.',
                   ),
                   const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      // TODO: Navigate with custom transition
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Custom transition applied!'),
-                        ),
-                      );
-                    },
-                    child: const Text('Custom Transition'),
-                  ),
+                  const Text("""Checkout how to setup Custom Route Transitions 
+and apply them to Lesson4SettingsRoute in AppRouter
+                  """),
                 ],
               ),
             ),

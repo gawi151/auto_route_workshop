@@ -5,7 +5,7 @@ A comprehensive Flutter workshop exploring the `auto_route` package for type-saf
 ## Quick Start
 
 ### Prerequisites
-- Flutter 3.19.0 or higher
+- Flutter 3.35.0 or higher
 - Dart 3.9.0 or higher
 
 ### Setup
@@ -13,13 +13,13 @@ A comprehensive Flutter workshop exploring the `auto_route` package for type-saf
 ```bash
 cd auto_route_workshop
 flutter pub get
-flutter pub run build_runner build --delete-conflicting-outputs
+flutter pub run build_runner build -d
 flutter run
 ```
 
 ### Development
 ```bash
-flutter pub run build_runner watch --delete-conflicting-outputs
+flutter pub run build_runner watch -d
 ```
 
 ## Project Overview
@@ -49,18 +49,9 @@ lib/
 - Learn push() and pop() navigation
 - Implement screen-to-screen navigation
 - Understand navigation stack
-
-**Navigation Methods:**
-```dart
-// Push: Add screen to stack
-context.router.push(Lesson1DetailsRoute());
-
-// Pop: Remove screen and go back
-context.router.pop();
-
-// Replace: Replace without adding to stack
-context.router.replace(NewScreenRoute());
-```
+- Learn how to implement guards
+- Deep linking
+- Custom transitions setup
 
 **Your Tasks:**
 - TODO 1 in lesson1_home.dart: Navigate to details using push()
@@ -79,22 +70,6 @@ context.router.replace(NewScreenRoute());
 - Pass data between screens
 - Type-safe parameter passing
 - Navigate with data to detail screens
-
-**Type-Safe Parameters:**
-```dart
-@RoutePage()
-class ProductDetailScreen extends StatelessWidget {
-  final Product product;
-
-  const ProductDetailScreen({required this.product});
-
-  @override
-  Widget build(context) => ...
-}
-
-// Navigate with type-safe data
-context.router.push(ProductDetailRoute(product: myProduct));
-```
 
 **Your Tasks:**
 - TODO 1 in lesson2_products.dart: Navigate to ProductDetailScreen with product parameter
@@ -142,39 +117,34 @@ Shows: [Home, Details]  Shows: [Products, ProductDetail]
 
 **Learning Goals:**
 - Implement route guards
-- Understand route resolvers
+- Understand async data fetch
 - Customize page transitions
-
-**Route Guards (Conditional Navigation):**
-```dart
-class AuthGuard extends AutoRouteGuard {
-  void onNavigation(NavigationResolver resolver, AutoRoutePage route) {
-    if (isLoggedIn) {
-      resolver.next();
-    } else {
-      // Prevent navigation
-    }
-  }
-}
-```
 
 **Your Tasks:**
 - TODO 1: Implement guarded route navigation
 - TODO 2: Show SnackBar if access denied
-- TODO 3: Implement route resolver example
+- TODO 3: Implement data fetch guard example
 - TODO 4: Add custom page transition
 
 ## Auto Route API Quick Reference
 
-Full documentation: [pub.dev/packages/auto_route](https://pub.dev/packages/auto_route)
-
+**Navigation Methods:**
 ```dart
-// Navigation
-context.router.push(MyScreenRoute());
-context.router.pop();
-context.router.replace(MyScreenRoute());
-context.router.navigateTo('path');
+// Push: Add screen to stack
+context.router.push(Lesson1DetailsRoute());
 
+// Pop: Remove screen and go back
+context.router.pop();
+
+// Replace: Replace without adding to stack
+context.router.replace(NewScreenRoute());
+
+// NavigatePath: Navigate to path (there are other somethingPath methods)
+context.router.naviatePath('/your/path');
+```
+
+**Annotations:**
+```dart
 // Annotations
 @RoutePage()
 class MyScreen extends StatelessWidget { }
@@ -184,51 +154,6 @@ class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [...];
 }
-```
-
-## Common Mistakes & Solutions
-
-### 1. Forgetting to Run build_runner
-```bash
-flutter pub run build_runner build --delete-conflicting-outputs
-```
-
-### 2. String Routes vs Type-Safe
-```dart
-// ❌ Wrong
-Navigator.pushNamed(context, 'product-detail');
-
-// ✅ Correct
-context.router.push(ProductDetailRoute(product: product));
-```
-
-### 3. Missing @RoutePage() Annotation
-```dart
-// ❌ Wrong
-class MyScreen extends StatelessWidget { }
-
-// ✅ Correct
-@RoutePage()
-class MyScreen extends StatelessWidget { }
-```
-
-### 4. Mixing Navigation APIs
-```dart
-// ❌ Wrong - Don't mix
-Navigator.push(context, MaterialPageRoute(...));
-context.router.push(...);
-
-// ✅ Correct - Use only auto_route
-context.router.push(MyScreenRoute());
-```
-
-### 5. Missing Required Parameters
-```dart
-// ❌ Wrong
-context.router.push(DetailScreenRoute());
-
-// ✅ Correct
-context.router.push(DetailScreenRoute(product: myProduct));
 ```
 
 ## Troubleshooting
@@ -250,83 +175,10 @@ flutter run
 - Verify all screens are registered under the root route
 - Check that routes are properly organized in app_router.dart
 
-## auto_route vs go_router Comparison
-
-### Feature Comparison
-
-| Feature | auto_route | go_router |
-|---------|-----------|----------|
-| Type Safety | ✅ Full (generated) | ❌ String-based |
-| Learning Curve | 🟡 Moderate | ✅ Gentle |
-| Setup Complexity | 🟡 Moderate | ✅ Simple |
-| Code Generation | ✅ Yes | ❌ No |
-| IDE Autocomplete | ✅ Full | 🟡 Limited |
-| Deep Linking | ✅ Supported | ✅ Supported |
-| Route Guards | ✅ Supported | ✅ Supported |
-| Nested Routing | ✅ AutoTabsRouter | ✅ ShellRoute |
-| Dynamic Routes | 🟡 Limited | ✅ Better |
-| Bundle Size | 🟡 Larger | ✅ Smaller |
-| Maintained by | Community | Google |
-
-### auto_route Advantages
-- Type-safe routes (compiler catches errors)
-- Excellent IDE support and autocomplete
-- Complex nested routing (AutoTabsRouter)
-- Predictable generated code
-
-### auto_route Limitations
-- Requires build_runner setup
-- Extra build step in workflow
-- Generated files in codebase
-- Slightly larger app bundle
-- Steeper learning curve
-
-### go_router Advantages
-- Simple configuration (no code generation)
-- Smaller app bundle
-- Better dynamic routing flexibility
-- Maintained by Google
-- Gentle learning curve
-
-### go_router Limitations
-- String-based routing (typo-prone)
-- No compile-time checking
-- Runtime errors if parameters wrong
-- Manual parameter type conversion
-- Limited IDE support
-
-### Choose auto_route if you:
-✅ Value type safety and compile-time checking
-✅ Have complex nested navigation
-✅ Want full IDE autocomplete
-✅ Already use build_runner in project
-✅ Building a long-term app
-
-### Choose go_router if you:
-✅ Want minimal setup
-✅ Have simple routing needs
-✅ Bundle size is critical
-✅ Prefer Google-maintained solution
-✅ Need dynamic routing flexibility
-
 ## Resources
 
-- [auto_route Documentation](https://autoroute.vercel.app/)
 - [auto_route Package](https://pub.dev/packages/auto_route)
-- [go_router Package](https://pub.dev/packages/go_router)
-- [Flutter Navigation Guide](https://flutter.dev/docs/development/ui/navigation)
-
-## Next Steps After Workshop
-
-1. Implement authentication with route guards
-2. Add data pre-fetching with route resolvers
-3. Create custom page transitions
-4. Set up deep linking
-5. Add error handling
-6. Integrate analytics
 
 ---
 
 **Happy learning! 🚀**
-
-Check [Troubleshooting](#troubleshooting) section or [auto_route docs](https://autoroute.vercel.app/) for help.

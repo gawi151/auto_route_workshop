@@ -260,67 +260,21 @@ ElevatedButton(
 In `app_router.dart`:
 
 ```dart
-AutoRoute(
+CustomRoute(
   page: Lesson4SettingsRoute.page,
-  transitionsBuilder: (context, animation, secondaryAnimation, child) {
-    return FadeTransition(opacity: animation, child: child);
-  },
+  // TransitionsBuilders class contains a preset of common transitions builders.
+  transitionsBuilder: TransitionsBuilders.slideBottom,
+  duration: Duration(milliseconds: 400),
 )
 ```
 
-Or in the AppShellScreen for all transitions:
+Or in the AppRouter for all transitions:
+
 ```dart
-@RoutePage()
-class AppShellScreen extends StatelessWidget {
+class AppRouter extends RootStackRouter {
   @override
-  Widget build(BuildContext context) {
-    return AutoTabsRouter(
-      routes: [...],
-      transitionBuilder: (context, child, animation) {
-        return FadeTransition(opacity: animation, child: child);
-      },
-      builder: (context, child) {
-        return Scaffold(
-          body: child,
-          bottomNavigationBar: BottomNavigationBar(...),
-        );
-      },
-    );
-  }
-}
+  RouteType get defaultRouteType => RouteType.material(); // cupertino, custom, adaptive
 ```
-
-**Common Transitions:**
-
-```dart
-// Fade transition
-FadeTransition(opacity: animation, child: child)
-
-// Scale transition
-ScaleTransition(scale: animation, child: child)
-
-// Slide transition
-SlideTransition(
-  position: Tween<Offset>(
-    begin: const Offset(1, 0),
-    end: Offset.zero,
-  ).animate(animation),
-  child: child,
-)
-
-// Custom animation
-CustomTransition(
-  animation: animation,
-  secondaryAnimation: secondaryAnimation,
-  child: child,
-)
-```
-
-**Explanation:**
-- Transitions control how screens appear/disappear
-- `animation` is the primary animation (entering screen)
-- `secondaryAnimation` is for the screen being covered
-- Use common widgets like `FadeTransition`, `ScaleTransition`
 
 ---
 
@@ -346,33 +300,3 @@ CustomTransition(
 - Transitions customize appearance
 
 ---
-
-## Testing Your Solutions
-
-For each lesson:
-1. Implement the TODO
-2. Run `flutter pub run build_runner build` if needed
-3. Run `flutter run`
-4. Test the behavior
-5. Navigate between tabs to verify isolation
-6. Try back buttons and manual navigation
-
-## Common Issues While Implementing
-
-**"Route not found"**
-- Did you generate routes with build_runner?
-
-**"Parameter missing"**
-- Did you pass all required parameters?
-
-**"Stack doesn't work as expected"**
-- Are you using the right navigation method?
-- `push` vs `replace` behaves differently
-
-**"Transition not showing"**
-- Is the transition builder registered in app_router.dart?
-- Check the route configuration
-
----
-
-Happy learning! If you get stuck, compare your implementation to these solutions.
