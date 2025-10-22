@@ -73,7 +73,7 @@ class _Lesson3DeepLinksScreenState extends State<Lesson3DeepLinksScreen> {
             onPressed: () {
               // TODO: Configure path in app_router.dart and implement navigation
               // Hint: Use context.router.navigateNamed() with the profile path
-              _navigateToPath('lesson3/profile');
+              _navigateToPath('/lesson3/profile');
             },
             child: const Text('View Profile'),
           ),
@@ -82,7 +82,7 @@ class _Lesson3DeepLinksScreenState extends State<Lesson3DeepLinksScreen> {
             onPressed: () {
               // TODO: Configure path in app_router.dart and implement navigation
               // Navigate directly to edit, skipping the profile screen
-              _navigateToPath('lesson3/edit-profile');
+              _navigateToPath('/lesson3/edit-profile');
             },
             child: const Text('Edit Profile (Direct)'),
           ),
@@ -90,7 +90,7 @@ class _Lesson3DeepLinksScreenState extends State<Lesson3DeepLinksScreen> {
           ElevatedButton(
             onPressed: () {
               // TODO: Configure path in app_router.dart and implement navigation
-              _navigateToPath('lesson3/app-settings');
+              _navigateToPath('/lesson3/app-settings');
             },
             child: const Text('View Settings'),
           ),
@@ -126,22 +126,19 @@ class _Lesson3DeepLinksScreenState extends State<Lesson3DeepLinksScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Available Paths',
+                  'Paths to setup',
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text('lesson3/profile'),
-                const Text('lesson3/edit-profile'),
-                const Text('lesson3/app-settings'),
+                const Text('/lesson3/intro'), // this page
+                const Text('/lesson3/profile'),
+                const Text('/lesson3/edit-profile'),
+                const Text('/lesson3/app-settings'),
               ],
             ),
           ),
-          SizedBox(
-            height: 500,
-            child: AutoRouter(),
-          )
         ],
       ),
     );

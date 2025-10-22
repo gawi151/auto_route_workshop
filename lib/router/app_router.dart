@@ -31,7 +31,7 @@ class AppRouter extends RootStackRouter {
             AutoRoute(page: Lesson1DetailsRoute.page),
           ],
         ),
-        // Lesson 2 Shell - with nested routes
+        // Lesson 2 Shell - type safe routing with object param
         AutoRoute(
           page: Lesson2ShellRoute.page,
           children: [
@@ -42,22 +42,16 @@ class AppRouter extends RootStackRouter {
         // Lesson 3 Shell - Deep Linking
         AutoRoute(
           page: Lesson3ShellRoute.page,
+          // TODO: Add path configuration for deep linking
+          // Add it to this path and children
           children: [
-            AutoRoute(
-              page: Lesson3DeepLinksRoute.page,
-              // TODO: Add path configuration for deep linking
-              // Add it to this route and children
-              // Hint: path parameter
-              children: [
-                // TODO: Configure paths for nested routes
-                AutoRoute(initial: true, page: Lesson3ProfileRoute.page),
-                AutoRoute(page: Lesson3ProfileEditRoute.page),
-                AutoRoute(page: Lesson3ProfileSettingsRoute.page),
-              ],
-            ),
+            AutoRoute(initial: true, page: Lesson3DeepLinksRoute.page),
+            AutoRoute(page: Lesson3ProfileRoute.page),
+            AutoRoute(page: Lesson3ProfileEditRoute.page),
+            AutoRoute(page: Lesson3ProfileSettingsRoute.page),
           ],
         ),
-        // Lesson 4 Shell - with nested routes
+        // Lesson 4 - Advanced topics
         AutoRoute(
           page: Lesson4ShellRoute.page,
           children: [
