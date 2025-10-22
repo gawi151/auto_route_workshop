@@ -184,7 +184,7 @@ Then in the route:
 // In app_router.dart
 AutoRoute(
   page: Lesson4ProtectedRoute.page,
-  guards: [SimpleAuthGuard()],
+  guards: [Lesson4AuthGuard()],
 )
 ```
 
@@ -210,25 +210,25 @@ ElevatedButton(
 - `resolver.next(boolean)` allow/prevent navigation
 - Guards are checked before the route completes
 
-### TODO 2: Implement route resolver example
+### TODO 2: Implement guard with data fetching example
 
 **File:** `lib/screens/lesson4_settings.dart`
 
 **Solution:**
 ```dart
-class DataResolver implements AutoRouteGuard {
+class AsyncDataGuard implements AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, AutoRoutePage route) async {
     // Simulate fetching data
-    await Future.delayed(const Duration(seconds: 1));
+    await fetchData("your custom data");
     resolver.next();
   }
 }
 
 // In app_router.dart
 AutoRoute(
-  page: Lesson4ProtectedRoute.page,
-  guards: [DataResolver()],
+  page: Lesson4AsyncDataRoute.page,
+  guards: [AsyncDataGuard()],
 )
 ```
 
@@ -241,24 +241,16 @@ ElevatedButton(
         content: Text('Loading data...'),
       ),
     );
-    // Simulate waiting for resolver
-    await Future.delayed(const Duration(seconds: 1));
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Data loaded! Navigating...'),
-        ),
-      );
-    }
+    context.router.push(Lesson4AsyncDataRoute())
   },
   child: const Text('Load Data'),
 ),
 ```
 
 **Explanation:**
-- Resolvers are like guards but typically fetch data
-- The route waits for the resolver to complete before navigating
-- Useful for pre-loading data before showing a screen
+- You can await in Guard's `onNavigation`
+- The route waits for the guard to complete before navigating
+- You can fetch data before entering screen
 
 ### TODO 4: Add custom page transition
 

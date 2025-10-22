@@ -235,6 +235,22 @@ class Lesson3ShellRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [Lesson4AsyncDataScreen]
+class Lesson4AsyncDataRoute extends PageRouteInfo<void> {
+  const Lesson4AsyncDataRoute({List<PageRouteInfo>? children})
+    : super(Lesson4AsyncDataRoute.name, initialChildren: children);
+
+  static const String name = 'Lesson4AsyncDataRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const Lesson4AsyncDataScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [Lesson4ProtectedScreen]
 class Lesson4ProtectedRoute extends PageRouteInfo<void> {
   const Lesson4ProtectedRoute({List<PageRouteInfo>? children})

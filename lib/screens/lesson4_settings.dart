@@ -93,9 +93,10 @@ class Lesson4SettingsScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
-                    onPressed: () {
-                      // TODO: Implement a resolver
-                      // This might show a loading indicator while data is fetched
+                    onPressed: () async {
+                      // TODO: Implement a async data fetching in guard
+                      // Implement guard yourself. Look for fetchData() method.
+                      // Explore: ActiveGuardObserver for nicer ui handling
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text(
