@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route_workshop/models/models.dart';
+import 'package:auto_route_workshop/screens/lesson4_auth_guard.dart';
 import 'package:flutter/foundation.dart';
 import '../screens/screens.dart';
 import '../screens/app_shell.dart';
@@ -56,7 +57,10 @@ class AppRouter extends RootStackRouter {
           page: Lesson4ShellRoute.page,
           children: [
             AutoRoute(initial: true, page: Lesson4SettingsRoute.page),
-            AutoRoute(page: Lesson4ProtectedRoute.page),
+            AutoRoute(
+              page: Lesson4ProtectedRoute.page,
+              guards: [Lesson4AuthGuard()],
+            ),
           ],
         ),
       ],

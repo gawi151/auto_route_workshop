@@ -169,18 +169,12 @@ Create a guard first (in a separate file or in the same file):
 
 ```dart
 // Define a simple guard
-class SimpleAuthGuard extends AutoRouteGuard {
+class Lesson4AuthGuard extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, AutoRoutePage route) {
     // Simulate checking if user is authenticated
     bool isAuthenticated = false;
-
-    if (isAuthenticated) {
-      resolver.next();
-    } else {
-      // Don't navigate - guard prevents it
-      resolver.reject();
-    }
+    resolver.next(isAuthenticated);
   }
 }
 ```
@@ -198,49 +192,13 @@ Navigation button:
 ```dart
 ElevatedButton(
   onPressed: () {
-    context.router.push(Lesson4ProtectedRoute());
-  },
-  child: const Text('Try Protected Route'),
-),
-```
-
-**Explanation:**
-- Guards intercept navigation and can allow/prevent it
-- `resolver.next()` allows navigation
-- `resolver.reject()` prevents navigation
-- Guards are checked before the route completes
-
-### TODO 2: Show SnackBar if access denied
-
-**File:** `lib/screens/lesson4_settings.dart`
-
-**Solution:**
-```dart
-ElevatedButton(
-  onPressed: () {
-    context.router.push(Lesson4ProtectedRoute()).then((_) {
-      // Navigation completed
-    }).catchError((e) {
-      // Navigation was rejected
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('This route requires authentication!'),
-        ),
-      );
-    });
-  },
-  child: const Text('Try Protected Route'),
-),
-```
-
-Or simpler - just show the SnackBar in the button:
-```dart
-ElevatedButton(
-  onPressed: () {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('This route requires authentication!'),
-      ),
+    context.router.push(
+      Lesson4ProtectedRoute(),
+      onFailure: (failure) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $failure')),
+        );
+      },
     );
   },
   child: const Text('Try Protected Route'),
@@ -248,11 +206,11 @@ ElevatedButton(
 ```
 
 **Explanation:**
-- The first approach uses `.catchError()` to handle rejection
-- The second approach simulates the behavior
-- In a real app, the guard would prevent access automatically
+- Guards intercept navigation and can allow/prevent it
+- `resolver.next(boolean)` allow/prevent navigation
+- Guards are checked before the route completes
 
-### TODO 3: Implement route resolver example
+### TODO 2: Implement route resolver example
 
 **File:** `lib/screens/lesson4_settings.dart`
 

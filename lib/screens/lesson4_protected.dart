@@ -27,9 +27,7 @@ class Lesson4ProtectedScreen extends StatelessWidget {
             const Text('You passed the guard check!'),
             const SizedBox(height: 32),
             ElevatedButton(
-              onPressed: () {
-                // TODO: Pop back
-              },
+              onPressed: () => context.router.pop(),
               child: const Text('Go Back'),
             ),
           ],

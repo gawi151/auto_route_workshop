@@ -61,9 +61,11 @@ class Lesson4SettingsScreen extends StatelessWidget {
                       // TODO: Implement a guarded route
                       // Try navigating to a protected screen
                       // It should be blocked if not authenticated
+                      // Hint: requires update in app_router, guard itself and
+                      // some error handling
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('This route requires authentication!'),
+                          content: Text('Remember to implement guard.'),
                         ),
                       );
                     },
@@ -96,7 +98,9 @@ class Lesson4SettingsScreen extends StatelessWidget {
                       // This might show a loading indicator while data is fetched
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Resolver would fetch data here...'),
+                          content: Text(
+                            'Remember to implement guard with async action.',
+                          ),
                         ),
                       );
                     },
