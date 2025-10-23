@@ -5,8 +5,8 @@ A comprehensive Flutter workshop exploring the `auto_route` package for type-saf
 ## Quick Start
 
 ### Prerequisites
-- Flutter 3.35.0 or higher
-- Dart 3.9.0 or higher
+- Flutter 3.35.6 or higher
+- Dart 3.9.2 or higher
 
 ### Setup
 
